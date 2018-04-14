@@ -90,19 +90,15 @@ module.exports = {
         // var path = '../../assets/images/' + email;
         var path = '../../assets/images/';
 
-        // var dir = '../../assets/images/' + email;
-        // if (!fs.existsSync(path)) {
-        //     fs.mkdirSync(path);
-        // }
-
         file.upload({ dirname: path, saveAs: fileName, maxBytes: 1 * 1024 * 1024 }, function (err, data) {
             if (err) {
                 return res.send(err);
             }
             // delete data[0].fd;
             // return res.send(data);
-            data[0].imageUrl = 'images/' + '/' + fileName;
-            Gallery.create({ email: email, imageUrl: data[0].fd }).exec(function (err, result) {
+            data[0].imageUrl = 'http://ec2-54-183-184-110.us-west-1.compute.amazonaws.com/images/' + fileName;
+            // data[0].imageUrl = 'images/' + '/' + fileName;
+            Gallery.create({ email: email, imageUrl: data[0].imageUrl }).exec(function (err, result) {
                 if (err) {
                     return res.send({ status: err.status, data: err, message: 'image upload failed' });
                 }
@@ -133,30 +129,30 @@ module.exports = {
         })
     },
 
-    // getImageByAdmin: function (req, res) {
+    getImageByAdmin: function (req, res) {
 
-    //     if (!req.body.imageId) {
-    //         return res.send('please provide imageId');
-    //     }
-    //     UpdateImage.find().exec(function (err, result) {
-    //         if (err) {
-    //             return res.send(err);
-    //         }
-    //         else if (!result) {
-    //             return res.send('image not available');
-    //         }
-    //         else {
-    //             var imageData = result.filter(function (json) {
-    //                 if (json.image.id == req.body.imageId) {
-    //                     return json;
-    //                 }
-    //             });
-    //             if (imageData.length == 0) {
-    //                 return res.send('image not available');
-    //             }
-    //             return res.send(imageData);
-    //         }
+        if (!req.body.imageId) {
+            return res.send('please provide imageId');
+        }
+        UpdateImage.find().exec(function (err, result) {
+            if (err) {
+                return res.send(err);
+            }
+            else if (!result) {
+                return res.send('image not available');
+            }
+            else {
+                var imageData = result.filter(function (json) {
+                    if (json.image.id == req.body.imageId) {
+                        return json;
+                    }
+                });
+                if (imageData.length == 0) {
+                    return res.send('image not available');
+                }
+                return res.send(imageData);
+            }
 
-    //     })
-    // }
+        })
+    }
 };

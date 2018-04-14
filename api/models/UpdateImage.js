@@ -26,6 +26,11 @@ module.exports = {
         },
         colors: {
             required: true
+        },
+        isUpdated: {
+            type: 'integer',
+            required: true,
+            defaultsTo: 0
         }
     }
 };

@@ -1,3 +1,5 @@
+// import { REFUSED } from 'dns';
+
 /**
  * UsersController
  *
@@ -125,6 +127,37 @@ module.exports = {
             }
             else {
                 return res.send('Invalid token or link expired');
+            }
+
+        })
+    },
+
+    getUsersToManageImage: function (req, res) {
+        var userList = [];
+        Users.find({ userType: 'admin' }).exec(function (err, users) {
+            if (err) {
+                return res.send({status: err.status, data: err, message: 'users not fetched'});
+            }
+            else {
+                UpdateImage.find({ isUpdated: 0 }).exec(function (err, imageData) {
+
+                    if (err) {
+                        return res.send({status: err.status, data: err, message: 'users not found'});
+                    }
+                    else {
+                        imageData.filter(function (imageJson) {
+                            users.filter(function (userJson) {
+                                if (imageJson.image.email == userJson.email) {
+                                    delete userJson.resetPasswordToken;
+                                    delete userJson.resetPasswordExpires;
+                                    userJson.imageId = imageJson.id;
+                                    userList.push(userJson);
+                                }
+                            });
+                        });
+                        return res.send({status: 200, data: userList, message: 'Users Fetched Successfully'});
+                    }
+                })
             }
 
         })

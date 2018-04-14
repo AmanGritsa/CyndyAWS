@@ -52,7 +52,8 @@ module.exports.routes = {
    },
    'POST /getImageByAdmin': 'GalleryController.getImageByAdmin',
    'POST /logout': 'AuthController.logout',
-   'POST /uploadFile': 'GalleryController.uploadFile'
+   'POST /uploadFile': 'GalleryController.uploadFile',
+   'GET /getUsersToManageImage': 'UsersController.getUsersToManageImage'
 
   /***************************************************************************
   *                                                                          *
