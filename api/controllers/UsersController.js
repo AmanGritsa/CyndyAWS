@@ -1,4 +1,4 @@
-// import { REFUSED } from 'dns';
+import { REFUSED } from 'dns';
 
 /**
  * UsersController
