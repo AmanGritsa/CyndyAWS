@@ -517,6 +517,49 @@ token
 
 <!-- Reset Password -->
 
+
+<!-- *************************User_Profile*********************************************** --> 
+<a href="#" class="accordion-toggle"><span class="toggle-icon"><i class="fa fa-plus-circle"></i></span>
+    <span style="margin-left:50px;line-height: 1.5em;">5) Upload User Image</span>
+</a> 
+<div class="accordion-content">
+    <p>
+        <h5>Parameters: </h5>
+        <pre>
+'email'        => 'required|email|max:255',
+'token' => 'required',
+'image' => 'required'
+          </pre>
+    </p>
+    <p> <h5>Response Required: </h5>Status Code (ex: 200, 401)</p>
+    <p> <h5>Brief Description: </h5>token (ex: Mobulous eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTIzMDA2ODU3fQ.dvLq8ifMcMQHTynI8fJFpSTrrcfu338cW2WPoraXeUs)</p>
+    <p> <h5>requestKey: </h5>uploadUserImage</p>
+<p> <h5>method: </h5>POST</p>
+    <p> <h5>Sample Response: </h5>
+<pre>
+    {
+        "status": 200,
+        "data": {
+            "email": "aman@gmail.com",
+            "imageUrl": "http://ec2-54-183-184-110.us-west-1.compute.amazonaws.com/images/15237135297705236.jpg",
+            "createdAt": "2018-04-14T13:45:29.780Z",
+            "updatedAt": "2018-04-14T13:45:29.780Z",
+            "id": "5ad205f99cf1ff3b7c6fa7de"
+        },
+        "message": "image successfully uploaded"
+    }
+      </pre>
+    </p>
+    <p> <h5>Test Status: </h5></p>
+    <p> <h5>Notes: </h5></p>
+</div>
+
+
+<!-- *************************User_Profile*********************************************** --> 
+
+
+
+
 <!--      <a href="#" class="accordion-toggle"><span class="toggle-icon"><i class="fa fa-plus-circle"></i></span>
           <span style="margin-left:50px;line-height: 1.5em;">5) userChangePassword_token</span>
       </a> 
