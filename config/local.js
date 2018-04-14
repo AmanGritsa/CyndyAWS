@@ -59,7 +59,7 @@ module.exports = {
    * In env/production.js, you'll probably want to change this setting       *
    * to 80 (http://) or 443 (https://) if you have an SSL certificate        *
    ***************************************************************************/
-host: '54.183.184.110',
+  // host: '54.183.184.110',
   port: process.env.PORT || 80,
 
   /***************************************************************************
@@ -80,6 +80,6 @@ host: '54.183.184.110',
    * 'development' environment.                                              *
    ***************************************************************************/
 
-   // environment: process.env.NODE_ENV || 'development'
+  // environment: process.env.NODE_ENV || 'development'
 
 };
