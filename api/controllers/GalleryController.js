@@ -42,7 +42,7 @@ module.exports = {
             if (err) {
                 return res.send({ status: err.status, data: err, message: 'image upload failed' });
             }
-            data[0].imageUrl = __dirname+'/images/' + fileName;
+            data[0].imageUrl = req.headers.host+'/images/' + fileName;
             // data[0].imageUrl = 'http://127.0.0.1:1337/images/' + fileName;
             Gallery.create({ email: email, imageUrl: data[0].imageUrl }).exec(function (err, result) {
                 if (err) {
