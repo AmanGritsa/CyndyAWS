@@ -59,6 +59,25 @@ module.exports = {
                 console.log("Email sent to " + emailDetails.email);
             }
         });
+    },
+
+    sendPDF: function(emailDetails, doc){
+        var data = {
+            to: emailDetails.email,
+            subject: 'Your Image Details',
+            html: "Hello, <br> Please find your image details",
+            attachments: [{
+                filename: 'attachment.pdf',
+                content: doc,
+              }],
+        }
+        smtpTransporter.sendMail(data, function (error, response) {
+            if (error) {
+                console.log("error: " + error);
+            } else {
+                console.log("pdf sent to " + emailDetails.email);
+            }
+        });
     }
 
     

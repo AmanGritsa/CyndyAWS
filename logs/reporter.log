@@ -1,0 +1,28 @@
+2018-04-16T12:58:42.328Z - info: Initializing jsreport@1.10.0 in development mode using configuration file: none
+2018-04-16T12:58:42.329Z - info: Setting process based strategy for rendering. Please visit http://jsreport.net/learn/configuration for information how to get more performance.
+2018-04-16T12:58:42.336Z - info: Searching for available extensions in /home/mobulous85/CyndyAWS/
+2018-04-16T12:58:42.339Z - info: Extensions location cache not found, crawling directories
+2018-04-16T12:58:43.607Z - info: Found 30 extensions
+2018-04-16T12:58:43.651Z - debug: Writing extension locations cache to /tmp/jsreport/core/locations.json
+2018-04-16T12:58:43.651Z - debug: Discovered 30 extensions
+2018-04-16T12:58:43.653Z - info: Using extension jsrender
+2018-04-16T12:58:43.654Z - info: Using extension fop-pdf
+2018-04-16T12:58:43.987Z - info: Using extension handlebars
+2018-04-16T12:58:44.069Z - info: Using extension templates
+2018-04-16T12:58:44.079Z - info: Using extension html-to-xlsx
+2018-04-16T12:58:44.341Z - info: Using extension data
+2018-04-16T12:58:44.436Z - info: Using extension phantom-pdf
+2018-04-16T12:58:45.115Z - info: Using extension text
+2018-04-16T12:58:45.118Z - info: Using extension assets
+2018-04-16T12:58:45.157Z - info: Using extension scripts
+2018-04-16T12:58:45.252Z - info: Using extension xlsx
+2018-04-16T12:58:45.708Z - info: Creating memory store
+2018-04-16T12:58:45.828Z - info: reporter initialized
+2018-04-16T12:58:45.829Z - info: Starting rendering request 1 (user: null) requestId=1
+2018-04-16T12:58:45.830Z - info: Rendering anonymous template { recipe:undefined,engine:handlebars} requestId=1
+2018-04-16T12:58:45.830Z - debug: Inline data specified. requestId=1
+2018-04-16T12:58:45.841Z - debug: Rendering engine handlebars requestId=1
+2018-04-16T12:58:55.855Z - error: Error when processing render request Error during rendering report: Timeout error during executing script Error: Timeout error during executing script
+    at Timeout._onTimeout (/home/mobulous85/CyndyAWS/node_modules/script-manager/lib/manager-processes.js:24:8)
+    at ontimeout (timers.js:482:11)
+    at Timer.unrefdHandle (timers.js:595:5) requestId=1

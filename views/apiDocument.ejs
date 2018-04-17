@@ -559,6 +559,92 @@ token
 
 
 
+<!-- *************************Get Users on Dashboard*********************************************** --> 
+<a href="#" class="accordion-toggle"><span class="toggle-icon"><i class="fa fa-plus-circle"></i></span>
+    <span style="margin-left:50px;line-height: 1.5em;">5) Get Users List on Dashboard</span>
+</a> 
+<div class="accordion-content">
+    <p>
+        <h5>Parameters: </h5>
+        <pre>
+'userType'        => 'required|max:255',
+'token' => 'required'
+          </pre>
+    </p>
+    <p> <h5>Response Required: </h5>Status Code (ex: 200, 401)</p>
+    <p> <h5>Brief Description: </h5>token (ex: Mobulous eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTIzMDA2ODU3fQ.dvLq8ifMcMQHTynI8fJFpSTrrcfu338cW2WPoraXeUs)</p>
+    <p> <h5>requestKey: </h5>getUsersToManageImage</p>
+<p> <h5>method: </h5>POST</p>
+    <p> <h5>Sample Response: </h5>
+<pre>
+    {
+        "status": 200,
+        "data": [
+            {
+                "id": "5acf43f5537bac0014b0d29e",
+                "email": "aman1@gmail.com",
+                "userName": "Aman",
+                "stylistName": "Test",
+                "phoneNumber": "32534546",
+                "imageId": "5ad4aee0d38e7b74d93f3fd5",
+                "imageUrl": "http://127.0.0.1:1337/images/15238878407891496.jpg",
+                "styleId": "5ad4aee1d38e7b74d93f3fd6"
+            },
+            {
+                "id": "5acf43f5537bac0014b0d29e",
+                "email": "aman1@gmail.com",
+                "userName": "Aman",
+                "stylistName": "Test",
+                "phoneNumber": "32534546",
+                "imageId": "5ad4aee5d38e7b74d93f3fd7",
+                "imageUrl": "http://127.0.0.1:1337/images/15238878449973683.jpg",
+                "styleId": "5ad4aee5d38e7b74d93f3fd8"
+            }
+        ],
+        "message": "Users Fetched Successfully"
+    }
+      </pre>
+    </p>
+    <p> <h5>Test Status: </h5></p>
+    <p> <h5>Notes: </h5></p>
+</div>
+
+
+<!-- *************************Get Users on Dashboard*********************************************** --> 
+
+
+<!-- *************************Send image report in pdf*********************************************** --> 
+<a href="#" class="accordion-toggle"><span class="toggle-icon"><i class="fa fa-plus-circle"></i></span>
+    <span style="margin-left:50px;line-height: 1.5em;">5) Send Image Details on Email</span>
+</a> 
+<div class="accordion-content">
+    <p>
+        <h5>Parameters: </h5>
+        <pre>
+'email'        => 'required|email|max:255',
+'styleId' => 'required',
+'token' => 'required'
+          </pre>
+    </p>
+    <p> <h5>Response Required: </h5>Status Code (ex: 200, 401)</p>
+    <p> <h5>Brief Description: </h5>token (ex: Mobulous eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTIzMDA2ODU3fQ.dvLq8ifMcMQHTynI8fJFpSTrrcfu338cW2WPoraXeUs)</p>
+    <p> <h5>requestKey: </h5>sendDetailsInPDF</p>
+<p> <h5>method: </h5>POST</p>
+    <p> <h5>Sample Response: </h5>
+<pre>
+    {
+        "status": 200,
+        "message": "pdf report successfully sent"
+    }
+      </pre>
+    </p>
+    <p> <h5>Test Status: </h5></p>
+    <p> <h5>Notes: </h5></p>
+</div>
+
+
+<!-- *************************Send image report in pdf*********************************************** --> 
+
 
 <!--      <a href="#" class="accordion-toggle"><span class="toggle-icon"><i class="fa fa-plus-circle"></i></span>
           <span style="margin-left:50px;line-height: 1.5em;">5) userChangePassword_token</span>

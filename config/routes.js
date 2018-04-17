@@ -50,10 +50,12 @@ module.exports.routes = {
    '/api/services': {
      view: 'apiDocument'
    },
-   'POST /getImageByAdmin': 'GalleryController.getImageByAdmin',
+  //  'POST /getImageByAdmin': 'GalleryController.getImageByAdmin',
    'POST /logout': 'AuthController.logout',
    'POST /uploadFile': 'GalleryController.uploadFile',
-   'GET /getUsersToManageImage': 'UsersController.getUsersToManageImage'
+   'POST /getUsersToManageImage': 'UsersController.getUsersToManageImage',
+   'POST /updateImageDetails': 'GalleryController.updateImageDetails',
+   'POST /sendDetailsInPDF': 'GalleryController.sendDetailsInPDF'
 
   /***************************************************************************
   *                                                                          *

@@ -1,5 +1,3 @@
-// import { REFUSED } from 'dns';
-
 /**
  * UsersController
  *
@@ -133,34 +131,57 @@ module.exports = {
     },
 
     getUsersToManageImage: function (req, res) {
-        var userList = [];
-        Users.find({ userType: 'admin' }).exec(function (err, users) {
-            if (err) {
-                return res.send({status: err.status, data: err, message: 'users not fetched'});
-            }
-            else {
-                UpdateImage.find({ isUpdated: 0 }).exec(function (err, imageData) {
 
-                    if (err) {
-                        return res.send({status: err.status, data: err, message: 'users not found'});
-                    }
-                    else {
-                        imageData.filter(function (imageJson) {
-                            users.filter(function (userJson) {
-                                if (imageJson.image.email == userJson.email) {
-                                    delete userJson.resetPasswordToken;
-                                    delete userJson.resetPasswordExpires;
-                                    userJson.imageId = imageJson.id;
-                                    userList.push(userJson);
-                                }
+        var userType = req.param('userType');
+        if (!userType) {
+            return res.send({ status: 401, message: 'please provide user type' });
+        }
+        if (userType == 'admin') {
+            Users.find({ userType: 'user' }).exec(function (err, users) {
+                if (err) {
+                    return res.send({ status: err.status, data: err, message: 'users not fetched' });
+                }
+                else {
+                    var userList = [];
+                    UpdateImage.find({ isUpdated: 0 }).exec(function (err, imageData) {
+
+                        if (err) {
+                            return res.send({ status: err.status, data: err, message: 'users not found' });
+                        }
+                        else {
+
+                            imageData.filter(function (imageJson) {
+                                users.filter(function (userJson) {
+                                    if (imageJson.image.email == userJson.email) {
+
+                                        function UsersList() {
+                                            return {
+                                                'id': userJson.id,
+                                                'email': userJson.email,
+                                                'userName': userJson.userName,
+                                                'stylistName': userJson.stylistName,
+                                                'phoneNumber': userJson.phoneNumber,
+                                                'imageId': imageJson.image.id,
+                                                'imageUrl': imageJson.image.imageUrl,
+                                                'styleId': imageJson.id
+                                            };
+                                        };
+                                        var s = UsersList();
+                                        userList.push(s);
+                                    }
+                                });
                             });
-                        });
-                        return res.send({status: 200, data: userList, message: 'Users Fetched Successfully'});
-                    }
-                })
-            }
+                            return res.send({ status: 200, data: userList, message: 'Users Fetched Successfully' });
+                        }
+                    });
+                }
 
-        })
+            });
+        }
+        else {
+            return res.send({ status: 401, message: 'You are not authorised' });
+        }
+
     }
 
 };
