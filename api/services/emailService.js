@@ -32,7 +32,7 @@ module.exports = {
 
     sendResetPasswordToken: function (emailDetails) {
         // link = "http://" + config.host + ":" + config.port + "/resetPassword/" + emailDetails.resetToken;
-        link = "https://cyndyporter.herokuapp.com/resetPassword/" + emailDetails.resetToken;
+        link = "ec2-18-217-140-4.us-east-2.compute.amazonaws.com/resetPassword/" + emailDetails.resetToken;
         mailOptions = {
             to: emailDetails.email,
             subject: "Please Reset your Password",

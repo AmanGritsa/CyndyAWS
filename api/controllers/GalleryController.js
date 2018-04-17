@@ -42,8 +42,7 @@ module.exports = {
             if (err) {
                 return res.send({ status: err.status, data: err, message: 'image upload failed' });
             }
-            data[0].imageUrl = req.protocol + '://' + req.get('host')+'/images/' + fileName;
-            // data[0].imageUrl = 'http://127.0.0.1:1337/images/' + fileName;
+            data[0].imageUrl = req.protocol + '://' + req.get('host') + '/images/' + fileName;
             Gallery.create({ email: email, imageUrl: data[0].imageUrl }).exec(function (err, result) {
                 if (err) {
                     return res.send({ status: err.status, data: err, message: 'image upload failed' });
@@ -145,26 +144,20 @@ module.exports = {
         // doc.pipe(res)
         // doc.end()
 
-        // transport.sendMail({
-        //     from: '...',
-        //     to: '...',
-        //     subject: '...',
-        //     text: '...',
-        //     attachments: [{
-        //       filename: 'attachment.pdf',
-        //       content: doc,
-        //     }],
-        //   });
+    
         var test = 'aman';
         var myData = '<html><h1>Welcome</h1> <br></html>' + test;
         doc.font('Times-Roman')
-            .fontSize(48)
-            .image('assets/images/15238756185994548.jpg', 260, 50, { height: 100, width: 100 })
-            .text(myData, 100, 100)
+            .fontSize(15)
+            .text('User Name', 50, 50)
+            .text(test, 200, 50)
+            .text('User Image', 50, 100)
+            .image('assets/images/152397260202686.jpg', 200, 100, { height: 150, width: 200 })
+            .text('Skin Color', 50, 250)
 
-        doc.circle(280, 200, 50)
-   .fill("#6600FF");
-   
+        doc.circle(200, 250, 30)
+            .fill("#6600FF");
+
         doc.end();
         var user = {
             email: 'amanniet@gmail.com'
