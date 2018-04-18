@@ -109,60 +109,22 @@ module.exports = {
             if (err) {
                 return res.send({ status: 401, data: err, message: 'image updation failed' });
             }
-            return res.send({ status: 200, data: result, message: 'Image Update Success' });
+            else {
+                var registrationToken = "evIpYSNATXo:APA91bFLGI1vvTB8321MuKkNsrbjwesV_YwBEYtDZvozSg1x8n4UZN8TDpaZw2dUSQhGxMyPHrr54mA89-IOM3fZdssG8Ypf9wITky9ypwkC_O9sScv5qE_cHPQUgqF-HmtRCMJTJqEH";
+                var payload = {
+                    'notification': {
+                        'title': 'Hello Cyndy',
+                        'body': 'welcome'
+                    },
+                    'data': {
+                        'styleId': '46567547'
+                    }
+                };
+                notificationService.sendNotification(registrationToken, payload);
+                return res.send({ status: 200, data: result, message: 'Image Update Success' });
+            }
+
 
         });
     },
-
-    sendDetailsInPDF: function (req, res) {
-        //    var report = require("jsreport");
-        //    report.render({
-        //         template: {
-        //             content: "Hello world from {{#sayLoudly this.name}}",
-        //             helpers: "function sayLoudly(str) { return str.toUpperCase(); }",
-        //             engine: "handlebars"
-        //         },
-        //         data: { name: "jsreport" }
-        //     }).then(function(out) {
-        //         //pipes pdf with Hello world from JSREPORT
-        //         out.stream.pipe(res);
-        //     });
-
-        var PDFDocument = require('pdfkit');
-        var doc = new PDFDocument;
-        // var doc = new PDFDocument();
-        // var filename = 'aman';
-        // // Stripping special characters
-        // filename = encodeURIComponent(filename) + '.pdf'
-        // // Setting response to 'attachment' (download).
-        // // If you use 'inline' here it will automatically open the PDF
-        // res.setHeader('Content-disposition', 'attachment; filename="' + filename + '"')
-        // res.setHeader('Content-type', 'application/pdf')
-        // const content = 'this is a test';
-        // doc.y = 300
-        // doc.text(content, 50, 50)
-        // doc.pipe(res)
-        // doc.end()
-
-    
-        var test = 'aman';
-        var myData = '<html><h1>Welcome</h1> <br></html>' + test;
-        doc.font('Times-Roman')
-            .fontSize(15)
-            .text('User Name', 50, 50)
-            .text(test, 200, 50)
-            .text('User Image', 50, 100)
-            .image('assets/images/152397260202686.jpg', 200, 100, { height: 150, width: 200 })
-            .text('Skin Color', 50, 250)
-
-        doc.circle(200, 250, 30)
-            .fill("#6600FF");
-
-        doc.end();
-        var user = {
-            email: 'amanniet@gmail.com'
-        }
-        emailService.sendPDF(user, doc);
-        return res.send({ status: 200, message: 'pdf report successfully sent' });
-    }
 };

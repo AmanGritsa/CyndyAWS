@@ -4,7 +4,6 @@
  * @description :: Server-side logic for managing auths
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
-var admin = require('firebase-admin');
 module.exports = {
   login: function (req, res) {
     var email = req.param('email');
@@ -30,13 +29,21 @@ module.exports = {
         if (!valid) {
           return res.json({ status: 401, message: 'email or password incorrect' });
         } else {
-          user.token = jwToken.issue({ id: user.id });
-          // req.session.userId = user.id;
-          // req.session.authenticated = true;
-          res.json({
-            status: 200,
-            data: user,
-            message: 'Logged In Successfully'
+
+          user.deviceToken = deviceToken;
+          user.deviceType = deviceType;
+          user.save(function (err) {
+            if (err) {
+              return res.send(err);
+            }
+            else {
+              user.token = jwToken.issue({ id: user.id });
+              res.json({
+                status: 200,
+                data: user,
+                message: 'Logged In Successfully'
+              });
+            }
           });
         }
       });
@@ -53,36 +60,46 @@ module.exports = {
     // });
   },
 
-  sendNotification: function (req, res) {
-    var serviceAccount = require('/home/mobulous85/CyndyAWS/cyndyporter-2572d-firebase-adminsdk-2gsjc-46d433d14e.json');
+  sendNotificationToUser: function (req, res) {
+    // var serviceAccount = require('/home/mobulous85/CyndyAWS/cyndyporter-2572d-firebase-adminsdk-2gsjc-9c72746f74.json');
 
-    admin.initializeApp({
-      credential: admin.credential.cert(serviceAccount),
-      databaseURL: "https://cyndyporter-2572d.firebaseio.com"
-    });
+    // if (!admin.apps.length) {
+    //   admin.initializeApp({
+    //     credential: admin.credential.cert(serviceAccount),
+    //     databaseURL: "https://cyndyporter-2572d.firebaseio.com"
+    //   });
+    // }
 
-    var registrationToken = "cDarF-16kwQ:APA91bHWXUBnBHTjTMU-7-cksPzvt61l1idEQ8nUV3fv0LOXwdJ9CFWHH1opKUVdDMT05S7FnKSTzeyzenplTnIs3UeD2XU6GbxKGrgetFJU0q4_t8toG10_WKebXzQ6REAfIC861z97";
+    // var registrationToken = "evIpYSNATXo:APA91bFLGI1vvTB8321MuKkNsrbjwesV_YwBEYtDZvozSg1x8n4UZN8TDpaZw2dUSQhGxMyPHrr54mA89-IOM3fZdssG8Ypf9wITky9ypwkC_O9sScv5qE_cHPQUgqF-HmtRCMJTJqEH";
 
+    var registrationToken = "evIpYSNATXo:APA91bFLGI1vvTB8321MuKkNsrbjwesV_YwBEYtDZvozSg1x8n4UZN8TDpaZw2dUSQhGxMyPHrr54mA89-IOM3fZdssG8Ypf9wITky9ypwkC_O9sScv5qE_cHPQUgqF-HmtRCMJTJqEH";
     var payload = {
-      data: {
-        key1: 'Hello Cyndy'
+      'notification': {
+        'title': 'Hello Cyndy',
+        'body': 'welcome'
+      },
+      'data': {
+        'styleId': '46567547'
       }
     };
-    var options = {
-      priority: "high",
-      timeToLive: 60 * 60 * 24
-    };
+    notificationService.sendNotification(registrationToken, payload);
+    return res.send('sent');
 
-    admin.messaging().sendToDevice(registrationToken, payload, options)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
+    // var options = {
+    //   priority: "high",
+    //   timeToLive: 60 * 60 * 24
+    // };
+
+    // admin.messaging().sendToDevice(registrationToken, payload, options)
+    //   .then(function (response) {
+    //     console.log(response);
+    //     return res.send({ status: 200, message: 'Notification sent successfully' });
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //     return res.send({ status: 200, data: error, message: 'Notification failed' });
+    //   })
 
   },
 
-
 };
-

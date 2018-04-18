@@ -465,7 +465,7 @@ token
 
 <!-- *************************change_password*********************************************** --> 
      <a href="#" class="accordion-toggle"><span class="toggle-icon"><i class="fa fa-plus-circle"></i></span>
-          <span style="margin-left:50px;line-height: 1.5em;">3) Send Password Reset Link</span>
+          <span style="margin-left:50px;line-height: 1.5em;">7) Send Password Reset Link</span>
       </a> 
       <div class="accordion-content">
           <p>
@@ -494,7 +494,7 @@ token
 
 <!-- Reset Password -->
 <a href="#" class="accordion-toggle"><span class="toggle-icon"><i class="fa fa-plus-circle"></i></span>
-    <span style="margin-left:50px;line-height: 1.5em;">3) Reset Password (Update)</span>
+    <span style="margin-left:50px;line-height: 1.5em;">8) Reset Password (For Back-End)</span>
 </a> 
 <div class="accordion-content">
     <p>
@@ -520,7 +520,7 @@ token
 
 <!-- *************************User_Profile*********************************************** --> 
 <a href="#" class="accordion-toggle"><span class="toggle-icon"><i class="fa fa-plus-circle"></i></span>
-    <span style="margin-left:50px;line-height: 1.5em;">5) Upload User Image</span>
+    <span style="margin-left:50px;line-height: 1.5em;">9) Upload User Image</span>
 </a> 
 <div class="accordion-content">
     <p>
@@ -561,7 +561,7 @@ token
 
 <!-- *************************Get Users on Dashboard*********************************************** --> 
 <a href="#" class="accordion-toggle"><span class="toggle-icon"><i class="fa fa-plus-circle"></i></span>
-    <span style="margin-left:50px;line-height: 1.5em;">5) Get Users List on Dashboard</span>
+    <span style="margin-left:50px;line-height: 1.5em;">10) Get Users List on Dashboard (Admin)</span>
 </a> 
 <div class="accordion-content">
     <p>
@@ -613,9 +613,64 @@ token
 <!-- *************************Get Users on Dashboard*********************************************** --> 
 
 
+<!-- *************************Update Image Details*********************************************** --> 
+<a href="#" class="accordion-toggle"><span class="toggle-icon"><i class="fa fa-plus-circle"></i></span>
+    <span style="margin-left:50px;line-height: 1.5em;">11) Update Image Details (Admin)</span>
+</a> 
+<div class="accordion-content">
+    <p>
+        <h5>Parameters: </h5>
+        <pre>
+'colors'        => 'required|email|max:255',
+'styleId' => 'required',
+'deviceToken' => 'required|max:255'
+'token' => 'required'
+          </pre>
+    </p>
+    <p> <h5>Response Required: </h5>Status Code (ex: 200, 401)</p>
+    <p> <h5>Brief Description: </h5>token (ex: Mobulous eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTIzMDA2ODU3fQ.dvLq8ifMcMQHTynI8fJFpSTrrcfu338cW2WPoraXeUs)</p>
+    <p> <h5>requestKey: </h5>updateImageDetails</p>
+<p> <h5>method: </h5>POST</p>
+    <p> <h5>Sample Response: </h5>
+<pre>
+    {
+        "status": 200,
+        "data": [
+          {
+            "image": {
+              "email": "aman1@gmail.com",
+              "id": "5ad718024fca144f2900b7c2",
+              "imageUrl": "http://127.0.0.1:1337/images/15240458260344820.jpg"
+            },
+            "colors": {
+              "hair": "#e01b1b",
+              "skin": "#040fdc",
+              "eyes": "#46d059",
+              "lips": "#1822d9",
+              "metals": "#e5cbcb",
+              "dress": "#ee3ede"
+            },
+            "isUpdated": 1,
+            "createdAt": "2018-04-18T10:03:46.289Z",
+            "updatedAt": "2018-04-18T10:04:19.051Z",
+            "id": "5ad718024fca144f2900b7c3"
+          }
+        ],
+        "message": "Image Update Success"
+      }
+      </pre>
+    </p>
+    <p> <h5>Test Status: </h5></p>
+    <p> <h5>Notes: </h5></p>
+</div>
+
+
+<!-- *************************Update Image Details*********************************************** --> 
+
+
 <!-- *************************Send image report in pdf*********************************************** --> 
 <a href="#" class="accordion-toggle"><span class="toggle-icon"><i class="fa fa-plus-circle"></i></span>
-    <span style="margin-left:50px;line-height: 1.5em;">5) Send Image Details on Email</span>
+    <span style="margin-left:50px;line-height: 1.5em;">12) Send Image Details on Email</span>
 </a> 
 <div class="accordion-content">
     <p>
@@ -644,6 +699,40 @@ token
 
 
 <!-- *************************Send image report in pdf*********************************************** --> 
+
+<!-- *************************Send image report in pdf*********************************************** --> 
+<a href="#" class="accordion-toggle"><span class="toggle-icon"><i class="fa fa-plus-circle"></i></span>
+    <span style="margin-left:50px;line-height: 1.5em;">13) Send Image Details on Email</span>
+</a> 
+<div class="accordion-content">
+    <p>
+        <h5>Parameters: </h5>
+        <pre>
+'email'        => 'required|email|max:255',
+'styleId' => 'required',
+'token' => 'required'
+          </pre>
+    </p>
+    <p> <h5>Response Required: </h5>Status Code (ex: 200, 401)</p>
+    <p> <h5>Brief Description: </h5>token (ex: Mobulous eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTIzMDA2ODU3fQ.dvLq8ifMcMQHTynI8fJFpSTrrcfu338cW2WPoraXeUs)</p>
+    <p> <h5>requestKey: </h5>sendDetailsInPDF</p>
+<p> <h5>method: </h5>POST</p>
+    <p> <h5>Sample Response: </h5>
+<pre>
+    {
+        "status": 200,
+        "message": "pdf report successfully sent"
+    }
+      </pre>
+    </p>
+    <p> <h5>Test Status: </h5></p>
+    <p> <h5>Notes: </h5></p>
+</div>
+
+
+<!-- *************************Send image report in pdf*********************************************** --> 
+
+
 
 
 <!--      <a href="#" class="accordion-toggle"><span class="toggle-icon"><i class="fa fa-plus-circle"></i></span>

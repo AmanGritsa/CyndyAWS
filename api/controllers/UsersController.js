@@ -5,6 +5,8 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 var bcrypt = require('bcrypt')
+var ejs = require('ejs')
+var pdf = require('html-pdf')
 module.exports = {
     signup: function (req, res) {
         Users.findOne({ email: req.body.email }).exec(function (err, data) {
@@ -163,7 +165,9 @@ module.exports = {
                                                 'phoneNumber': userJson.phoneNumber,
                                                 'imageId': imageJson.image.id,
                                                 'imageUrl': imageJson.image.imageUrl,
-                                                'styleId': imageJson.id
+                                                'styleId': imageJson.id,
+                                                'deviceToken': userJson.deviceToken,
+                                                'deviceType': userJson.deviceType
                                             };
                                         };
                                         var s = UsersList();
@@ -182,6 +186,42 @@ module.exports = {
             return res.send({ status: 401, message: 'You are not authorised' });
         }
 
+    },
+
+    sendPDF: function (req, res) {
+
+        Gallery.findOne({ email: 'aman1@gmail.com' }).exec(function (err, user) {
+            if (err) {
+                return res.send(err);
+            }
+            else {
+                var pdf = require('html-pdf');
+                var variables = {
+                    user: user
+                };
+
+                ejs.renderFile('./views/pdfFile.ejs', variables, function (err, result) {
+                    // render on success
+                    if (result) {
+                        html = result;
+                        pdf.create(html).toStream(function (err, stream) {
+                            res.contentType("application/pdf");
+                            var user1 = {
+                                email: 'amanniet@gmail.com'
+                            }
+                            emailService.sendPDF(user1, stream);
+
+                            // stream.pipe(fs.createWriteStream('./foo.pdf'));
+                        });
+                    }
+                    // render or error
+                    else {
+                        res.end('An error occurred');
+                        console.log(err);
+                    }
+                });
+            }
+        })
     }
 
 };
