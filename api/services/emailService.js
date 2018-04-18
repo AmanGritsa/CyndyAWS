@@ -36,7 +36,7 @@ module.exports = {
         mailOptions = {
             to: emailDetails.email,
             subject: "Please Reset your Password",
-            html: "Hello,<br> Please Click on the link to reset your password.<br><a href=" + link + ">Click here to reset password</a>"
+            html: "Hello,<br> Please Click on the link to reset your password.<br><a href=" + link + ">Click here to reset password</a> <br> This link will expire in 1 hour"
         }
         smtpTransporter.sendMail(mailOptions, function (error, response) {
             if (error) {

@@ -41,10 +41,7 @@ module.exports = {
             }
             else {
 
-              
-              localStorage.setItem('userToken', user.deviceToken)//if you are sending token. 
-              console.log(localStorage.getItem('userToken'));
-
+              localStorage.setItem('deviceToken', user.deviceToken);
               user.token = jwToken.issue({ id: user.id });
               res.json({
                 status: 200,
@@ -69,21 +66,8 @@ module.exports = {
   },
 
   sendNotificationToUser: function (req, res) {
-    // var serviceAccount = require('/home/mobulous85/CyndyAWS/cyndyporter-2572d-firebase-adminsdk-2gsjc-9c72746f74.json');
 
-    // if (!admin.apps.length) {
-    //   admin.initializeApp({
-    //     credential: admin.credential.cert(serviceAccount),
-    //     databaseURL: "https://cyndyporter-2572d.firebaseio.com"
-    //   });
-    // }
-
-    // var registrationToken = "evIpYSNATXo:APA91bFLGI1vvTB8321MuKkNsrbjwesV_YwBEYtDZvozSg1x8n4UZN8TDpaZw2dUSQhGxMyPHrr54mA89-IOM3fZdssG8Ypf9wITky9ypwkC_O9sScv5qE_cHPQUgqF-HmtRCMJTJqEH";
-  
-    // var data = localStorage.getItem('userToken');
-var data1 = '../../cyndyporter-2572d-firebase-adminsdk-2gsjc-9c72746f74.json'; 
-console.log(data1);
-    var registrationToken = "eCztwtttQaw:APA91bGlq5k3Cs1lC2ktSJzAoiugeIKCqP_MMOr_PtloG2rm30MX3NUoe0LbQ3hSU8oHYMqQ1VLtXjXF6NUK2029wwhT_1p8B0BL9t4tbpLWQIL3tbjBXq59i9hxFQydAN2jE4aPd3FF";
+    var deviceToken = localStorage.getItem('deviceToken');
     var payload = {
       'notification': {
         'title': 'Hello Cyndy',
@@ -93,24 +77,8 @@ console.log(data1);
         'styleId': '46567547'
       }
     };
-    notificationService.sendNotification(registrationToken, payload);
+    notificationService.sendNotification(deviceToken, payload);
     return res.send('sent');
-
-    // var options = {
-    //   priority: "high",
-    //   timeToLive: 60 * 60 * 24
-    // };
-
-    // admin.messaging().sendToDevice(registrationToken, payload, options)
-    //   .then(function (response) {
-    //     console.log(response);
-    //     return res.send({ status: 200, message: 'Notification sent successfully' });
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //     return res.send({ status: 200, data: error, message: 'Notification failed' });
-    //   })
-
   },
 
 };

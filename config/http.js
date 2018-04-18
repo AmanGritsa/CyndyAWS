@@ -74,7 +74,7 @@ module.exports.http = {
   ***************************************************************************/
 
 
-    // bodyParser: require('skipper')({strict: true})
+    bodyParser: require('skipper')({strict: true})
 
   },
 

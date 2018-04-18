@@ -7,71 +7,63 @@
 var fs = require('fs');
 
 var AWS = require('aws-sdk');
+
+var LocalStorage = require('node-localstorage').LocalStorage;
+var localStorage = new LocalStorage('./scratch');
+
 module.exports = {
-
-    //  uploadFile: function (req, res) {
-    //     upload: function(req, res) {
-    //         req.file('image').upload({
-    //           adapter: require('skipper-s3-resize'),
-    //           key: <YOUR_S3_KEY>,
-    //           secret: <YOUR_S3_SECRET>,
-    //           bucket: <YOUR_S3_BUCKET>,
-    //           resize: {
-    //             width: <WIDTH>,
-    //             height: <HEIGHT>,
-    //             options: <GRAPHICMAGICK_OPTIONS>
-    //           }
-    //         }, function(err, uploadedFiles) {
-    //           if(err) return res.serverError(err);
-    //             res.ok();
-    //           });
-    //         }
-
-    //  },
-
 
     uploadUserImage: function (req, res) {
         var file = req.file('image');
         var email = req.param('email');
-        var timestamp = new Date().getTime();
-        var randomNumber = Math.floor(Math.random() * 9999);
-        var fileName = timestamp + '' + randomNumber + '.jpg';
-        var path = '../../assets/images/';
+        if (!email) {
+            return res.send({ status: 401, message: 'Email and Image are mandatory' });
+        }
+        else {
+            var timestamp = new Date().getTime();
+            var randomNumber = Math.floor(Math.random() * 9999);
+            var fileName = timestamp + '' + randomNumber + '.jpg';
+            var path = '../../assets/images/';
 
-        file.upload({ dirname: path, saveAs: fileName, maxBytes: 1 * 1024 * 1024 }, function (err, data) {
-            if (err) {
-                return res.send({ status: err.status, data: err, message: 'image upload failed' });
-            }
-            data[0].imageUrl = req.protocol + '://' + req.get('host') + '/images/' + fileName;
-            Gallery.create({ email: email, imageUrl: data[0].imageUrl }).exec(function (err, result) {
+            file.upload({ dirname: path, saveAs: fileName, maxBytes: 1 * 1024 * 1024 }, function (err, data) {
                 if (err) {
-                    return res.send({ status: err.status, data: err, message: 'image upload failed' });
+                    return res.send({ status: err.status, data: err, message: 'Image upload failed' });
                 }
+                else if(data.length == 0){
+                    return res.send({status: 401, message: 'Please select an image first'});
+                }
+                data[0].imageUrl = req.protocol + '://' + req.get('host') + '/images/' + fileName;
+                Gallery.create({ email: email, imageUrl: data[0].imageUrl }).exec(function (err, result) {
+                    if (err) {
+                        return res.send({ status: err.status, data: err, message: 'Image upload failed' });
+                    }
 
-                else {
-                    var imageJson = {
-                        email: result.email,
-                        id: result.id,
-                        imageUrl: result.imageUrl
-                    }
-                    var colorJson = {
-                        hair: '#ffffff',
-                        skin: '#ffffff',
-                        eyes: '#ffffff',
-                        lips: '#ffffff',
-                        metals: '#ffffff',
-                        dress: '#ffffff'
-                    }
-                    UpdateImage.create({ image: imageJson, colors: colorJson }).exec(function (err, image) {
-                        if (err) {
-                            return res.send({ status: err.status, data: err, message: 'image upload failed' });
+                    else {
+                        var imageJson = {
+                            email: result.email,
+                            id: result.id,
+                            imageUrl: result.imageUrl
                         }
-                        return res.send({ status: 200, data: result, message: 'image successfully uploaded' });
-                    });
-                }
+                        var colorJson = {
+                            hair: '#ffffff',
+                            skin: '#ffffff',
+                            eyes: '#ffffff',
+                            lips: '#ffffff',
+                            metals: '#ffffff',
+                            dress: '#ffffff'
+                        }
+                        UpdateImage.create({ image: imageJson, colors: colorJson }).exec(function (err, image) {
+                            if (err) {
+                                return res.send({ status: err.status, data: err, message: 'Image upload failed' });
+                            }
+                            return res.send({ status: 200, data: result, message: 'Image successfully uploaded' });
+                        });
+                    }
 
-            });
-        })
+                });
+            })
+        }
+
     },
 
     // getImageByAdmin: function (req, res) {
@@ -110,21 +102,21 @@ module.exports = {
                 return res.send({ status: 401, data: err, message: 'image updation failed' });
             }
             else {
-                var registrationToken = "evIpYSNATXo:APA91bFLGI1vvTB8321MuKkNsrbjwesV_YwBEYtDZvozSg1x8n4UZN8TDpaZw2dUSQhGxMyPHrr54mA89-IOM3fZdssG8Ypf9wITky9ypwkC_O9sScv5qE_cHPQUgqF-HmtRCMJTJqEH";
+                var registrationToken = localStorage.getItem('deviceToken');
                 var payload = {
                     'notification': {
-                        'title': 'Hello Cyndy',
-                        'body': 'welcome'
+                        'title': 'Congratulations',
+                        'body': 'Your image has been styled by Cyndy Porter'
                     },
                     'data': {
-                        'styleId': '46567547'
+                        'styleId': result[0].id,
+                        'imageUrl': result[0].image.imageUrl,
+                        'updatedTime': result[0].updatedAt
                     }
                 };
                 notificationService.sendNotification(registrationToken, payload);
                 return res.send({ status: 200, data: result, message: 'Image Update Success' });
             }
-
-
         });
     },
 };
