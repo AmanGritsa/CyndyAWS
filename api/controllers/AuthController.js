@@ -68,17 +68,46 @@ module.exports = {
   sendNotificationToUser: function (req, res) {
 
     var deviceToken = localStorage.getItem('deviceToken');
-    var payload = {
+    var payload = [{
       'notification': {
         'title': 'Hello Cyndy',
         'body': 'welcome'
       },
       'data': {
-        'styleId': '46567547'
+        'styleId': '123456'
       }
-    };
-    notificationService.sendNotification(deviceToken, payload);
-    return res.send('sent');
+    }];
+    Notification.findOne({ email: 'aman@gmail.com' }).exec(function (err, data) {
+      if (err) {
+        return res.send(err);
+      }
+      else if (!data) {
+        Notification.create({ email: 'aman@gmail.com', deviceToken: deviceToken, notifications: payload }).exec(function (err, result) {
+          if (err) {
+            return res.send(err);
+          }
+          return res.send(result);
+        })
+      }
+      else {
+        var a = data.notifications;
+        a.push(payload[0]);
+        data.notifications = a;
+        // data.push(payload);
+        data.save(function (err) {
+          if (err) {
+            return res.send(err);
+          }
+          else {
+            return res.send('success');
+          }
+        })
+      }
+
+
+    })
+    // notificationService.sendNotification(deviceToken, payload);
+    // return res.send('sent');
   },
 
 };

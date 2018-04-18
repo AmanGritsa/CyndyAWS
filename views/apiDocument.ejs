@@ -700,28 +700,58 @@ token
 
 <!-- *************************Send image report in pdf*********************************************** --> 
 
-<!-- *************************Send image report in pdf*********************************************** --> 
+<!-- *************************Get Notifications List*********************************************** --> 
 <a href="#" class="accordion-toggle"><span class="toggle-icon"><i class="fa fa-plus-circle"></i></span>
-    <span style="margin-left:50px;line-height: 1.5em;">13) Send Image Details on Email</span>
+    <span style="margin-left:50px;line-height: 1.5em;">13) Get Notifications List</span>
 </a> 
 <div class="accordion-content">
     <p>
         <h5>Parameters: </h5>
         <pre>
 'email'        => 'required|email|max:255',
-'styleId' => 'required',
 'token' => 'required'
           </pre>
     </p>
     <p> <h5>Response Required: </h5>Status Code (ex: 200, 401)</p>
     <p> <h5>Brief Description: </h5>token (ex: Mobulous eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTIzMDA2ODU3fQ.dvLq8ifMcMQHTynI8fJFpSTrrcfu338cW2WPoraXeUs)</p>
-    <p> <h5>requestKey: </h5>sendDetailsInPDF</p>
+    <p> <h5>requestKey: </h5>getAllNotifications</p>
 <p> <h5>method: </h5>POST</p>
     <p> <h5>Sample Response: </h5>
 <pre>
     {
         "status": 200,
-        "message": "pdf report successfully sent"
+        "data": {
+            "email": "aman1@gmail.com",
+            "notifications": [
+               
+                {
+                    "notification": {
+                        "title": "Congratulations",
+                        "body": "Your image has been styled by Cyndy Porter"
+                    },
+                    "data": {
+                        "styleId": "5ad75c6b23d666156a1b3e60",
+                        "imageUrl": "http://127.0.0.1:1337/images/15240633396815956.jpg",
+                        "updateTime": 1524063979638
+                    }
+                },
+                {
+                    "notification": {
+                        "title": "Congratulations",
+                        "body": "Your image has been styled by Cyndy Porter"
+                    },
+                    "data": {
+                        "styleId": "5ad75ee1c5c91a1960e84c37",
+                        "imageUrl": "http://127.0.0.1:1337/images/15240639697055344.jpg",
+                        "updateTime": 1524063979638
+                    }
+                }
+            ],
+            "createdAt": "2018-04-18T14:53:45.651Z",
+            "updatedAt": "2018-04-18T15:06:24.599Z",
+            "id": "5ad75bf923d666156a1b3e5e"
+        },
+        "message": "Notification list fetched"
     }
       </pre>
     </p>
@@ -730,7 +760,7 @@ token
 </div>
 
 
-<!-- *************************Send image report in pdf*********************************************** --> 
+<!-- *************************Get Notification List*********************************************** --> 
 
 
 

@@ -57,7 +57,8 @@ module.exports.routes = {
    'POST /updateImageDetails': 'GalleryController.updateImageDetails',
    'POST /sendDetailsInPDF': 'GalleryController.sendDetailsInPDF',
    'GET /sendPDF': 'UsersController.sendPDF',
-   'GET /sendNotificationToUser': 'AuthController.sendNotificationToUser'
+   'GET /sendNotificationToUser': 'AuthController.sendNotificationToUser',
+   'POST /getAllNotifications': 'UsersController.getAllNotifications'
 
   /***************************************************************************
   *                                                                          *

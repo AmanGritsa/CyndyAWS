@@ -29,8 +29,8 @@ module.exports = {
                 if (err) {
                     return res.send({ status: err.status, data: err, message: 'Image upload failed' });
                 }
-                else if(data.length == 0){
-                    return res.send({status: 401, message: 'Please select an image first'});
+                else if (data.length == 0) {
+                    return res.send({ status: 401, message: 'Please select an image first' });
                 }
                 data[0].imageUrl = req.protocol + '://' + req.get('host') + '/images/' + fileName;
                 Gallery.create({ email: email, imageUrl: data[0].imageUrl }).exec(function (err, result) {
@@ -94,7 +94,8 @@ module.exports = {
     // }
 
     updateImageDetails: function (req, res) {
-        if (!req.body.styleId || !req.body.colors) {
+
+        if (!req.body.styleId || !req.body.colors || !req.body.email) {
             return res.send({ status: 401, message: 'Please provide an StyleId and choose some colors' });
         }
         UpdateImage.update({ id: req.body.styleId }, { colors: req.body.colors, isUpdated: 1 }).exec(function (err, result) {
@@ -102,8 +103,9 @@ module.exports = {
                 return res.send({ status: 401, data: err, message: 'image updation failed' });
             }
             else {
+                var currentTime = new Date().getTime();
                 var registrationToken = localStorage.getItem('deviceToken');
-                var payload = {
+                var payload = [{
                     'notification': {
                         'title': 'Congratulations',
                         'body': 'Your image has been styled by Cyndy Porter'
@@ -111,12 +113,41 @@ module.exports = {
                     'data': {
                         'styleId': result[0].id,
                         'imageUrl': result[0].image.imageUrl,
-                        'updatedTime': result[0].updatedAt
+                        'updateTime': currentTime
                     }
-                };
-                notificationService.sendNotification(registrationToken, payload);
-                return res.send({ status: 200, data: result, message: 'Image Update Success' });
+                }];
+
+                Notification.findOne({ email: req.body.email }).exec(function (err, data) {
+                    if (err) {
+                        return res.send(err);
+                    }
+                    else if (!data) {
+                        Notification.create({ email: req.body.email, deviceToken: registrationToken, notifications: payload }).exec(function (err, result) {
+                            if (err) {
+                                return res.send(err);
+                            }
+                            notificationService.sendNotification(registrationToken, payload[0]);
+                            return res.send({ status: 200, data: result, message: 'Image Update Success' });
+                        })
+                    }
+                    else {
+                        var a = data.notifications;
+                        a.push(payload[0]);
+                        data.notifications = a;
+                        data.save(function (err) {
+                            if (err) {
+                                return res.send(err);
+                            }
+                            else {
+                                notificationService.sendNotification(registrationToken, payload[0]);
+                                return res.send({ status: 200, data: result, message: 'Image Update Success' });
+                            }
+                        })
+                    }
+                })
+
             }
         });
     },
+
 };

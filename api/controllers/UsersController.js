@@ -222,6 +222,22 @@ module.exports = {
                 });
             }
         })
+    },
+
+    getAllNotifications: function (req, res) {
+        if (!req.body.email) {
+            return res.send({ status: 401, message: 'Please provide an Email' });
+        }
+        else {
+            Notification.findOne({ email: req.body.email }).exec(function (err, data) {
+                if(err){
+                    return res.send({status: 401, data: err, message: 'Notifications not fetched'});
+                }
+                return res.send({status: 200, data: data, message: 'Notification list fetched'});
+
+            })
+        }
+
     }
 
 };
