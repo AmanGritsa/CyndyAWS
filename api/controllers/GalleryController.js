@@ -112,8 +112,7 @@ module.exports = {
                     },
                     'data': {
                         'styleId': result[0].id,
-                        'imageUrl': result[0].image.imageUrl,
-                        'updateTime': currentTime.toString()
+                        'imageUrl': result[0].image.imageUrl
                     }
                 }];
 
