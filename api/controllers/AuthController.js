@@ -72,7 +72,7 @@ module.exports = {
 
     // var registrationToken = "evIpYSNATXo:APA91bFLGI1vvTB8321MuKkNsrbjwesV_YwBEYtDZvozSg1x8n4UZN8TDpaZw2dUSQhGxMyPHrr54mA89-IOM3fZdssG8Ypf9wITky9ypwkC_O9sScv5qE_cHPQUgqF-HmtRCMJTJqEH";
 
-    var registrationToken = "evIpYSNATXo:APA91bFLGI1vvTB8321MuKkNsrbjwesV_YwBEYtDZvozSg1x8n4UZN8TDpaZw2dUSQhGxMyPHrr54mA89-IOM3fZdssG8Ypf9wITky9ypwkC_O9sScv5qE_cHPQUgqF-HmtRCMJTJqEH";
+    var registrationToken = "eCztwtttQaw:APA91bGlq5k3Cs1lC2ktSJzAoiugeIKCqP_MMOr_PtloG2rm30MX3NUoe0LbQ3hSU8oHYMqQ1VLtXjXF6NUK2029wwhT_1p8B0BL9t4tbpLWQIL3tbjBXq59i9hxFQydAN2jE4aPd3FF";
     var payload = {
       'notification': {
         'title': 'Hello Cyndy',
