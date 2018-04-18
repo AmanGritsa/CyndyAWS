@@ -1,7 +1,8 @@
 var admin = require('firebase-admin');
 module.exports = {
     sendNotification: function (deviceToken, payload) {
-        var serviceAccount = require('/home/mobulous85/CyndyAWS/cyndyporter-2572d-firebase-adminsdk-2gsjc-9c72746f74.json');
+        var appRoot = process.env.PWD + '/cyndyporter-2572d-firebase-adminsdk-2gsjc-9c72746f74.json';
+        var serviceAccount = require(appRoot);
 
         if (!admin.apps.length) {
             admin.initializeApp({
